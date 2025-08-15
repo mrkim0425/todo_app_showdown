@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'inherited_widget/todo_app.dart';
 import 'riverpod/riverpod_todo_app.dart';
 import 'bloc/bloc_todo_app.dart';
+import 'getx/getx_todo_app.dart';
+import 'getx/todo_routes.dart';
+import 'getx/todo_binding.dart';
+import 'provider/provider_todo_app.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +64,20 @@ class AppSelector extends StatelessWidget {
             const SizedBox(height: 20),
             _buildAppButton(
               context,
+              'Provider',
+              'Popular ChangeNotifier-based state management',
+              Colors.red,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const MaterialApp(home: ProviderTodoApp()),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            _buildAppButton(
+              context,
               'Riverpod',
               'Modern provider-based state management',
               Colors.green,
@@ -81,6 +100,24 @@ class AppSelector extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const MaterialApp(home: BlocTodoApp()),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            _buildAppButton(
+              context,
+              'GetX',
+              'Reactive state management with minimal boilerplate',
+              Colors.purple,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GetMaterialApp(
+                    home: const GetXTodoApp(),
+                    initialBinding: TodoBinding(),
+                    getPages: TodoRoutes.routes,
+                    debugShowCheckedModeBanner: false,
+                  ),
                 ),
               ),
             ),
